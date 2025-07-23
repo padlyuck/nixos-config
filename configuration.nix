@@ -61,16 +61,37 @@
     packages = with pkgs; [
       tree
       git
+      bat
+#     eza
+#     fzf
+#     ripgrep
+#     fd
+#     tree-sitter
     ];
     shell = pkgs.fish;
   };
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    shellAbbrs = {
+      md = "mkdir -p";
+      gst = "git status";
+      gd = "git diff";
+      _ = "sudo";
+      e = "$EDITOR";
+    };
+  };
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     configure = {
+      customRC = builtins.readFile ./neovim/init.vim;
       packages.all.start = with pkgs.vimPlugins; [
         nvim-treesitter.withAllGrammars
+        vim-airline
+        vim-airline-clock
+#       vim-airline-themes
+#       vim-move 
+#       autoclose-nvim
       ];
     };
   };
@@ -126,6 +147,5 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }
 
