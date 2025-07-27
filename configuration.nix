@@ -62,16 +62,24 @@
       tree
       git
       bat
-#     eza
+      lsd
+#     tldr
+#     lazygit
 #     fzf
 #     ripgrep
 #     fd
 #     tree-sitter
+      alejandra
     ];
     shell = pkgs.fish;
   };
   programs.fish = {
     enable = true;
+    shellAliases = {
+      cat = "bat";
+      ls = "lsd";
+      ll = "ls -al";
+    };
     shellAbbrs = {
       md = "mkdir -p";
       gst = "git status";
@@ -84,15 +92,31 @@
     enable = true;
     defaultEditor = true;
     configure = {
-      customRC = builtins.readFile ./neovim/init.vim;
-      packages.all.start = with pkgs.vimPlugins; [
-        nvim-treesitter.withAllGrammars
-        vim-airline
-        vim-airline-clock
-#       vim-airline-themes
-#       vim-move 
-#       autoclose-nvim
-      ];
+      customRC = "source ~/.config/nvim/init.lua";
+#      packages.all.start = with pkgs.vimPlugins; [
+#        nvim-treesitter.withAllGrammars
+## Packer with dependencies
+#        packer-nvim
+#        popup-nvim
+#        plenary-nvim
+## CMP plugins
+#        nvim-cmp
+#        cmp-buffer
+#        cmp-path
+#        cmp-cmdline
+#        cmp_luasnip
+## Snippets
+#        luasnip
+#        friendly-snippets
+## UI
+#        vim-airline
+#        vim-airline-clock
+#        vim-airline-themes
+#        tokyonight
+## Additional functionality
+#        vim-move # possibe a problem with movement to right
+#        autoclose-nvim
+#      ];
     };
   };
 
